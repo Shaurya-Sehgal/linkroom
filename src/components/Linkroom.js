@@ -18,10 +18,10 @@ function Linkroom() {
           </div>
           <div className="col d-flex align-items-center justify-content-end">
             <img
-              src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+              src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
               alt=""
               className="rounded-circle me-2"
-              width={50}
+              width={70}
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasRight"
               aria-controls="offcanvasRight"

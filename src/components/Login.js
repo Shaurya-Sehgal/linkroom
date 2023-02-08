@@ -60,19 +60,19 @@ function Login() {
             </div>
             <div className="mb-3">
               <label htmlFor="exampleInputPassword1" className="form-label">
-                Code
+                Password
               </label>
               <input
                 ref={code}
-                type="text"
+                type="password"
                 className="form-control"
                 id="exampleInputPassword1"
                 placeholder="enter a unique code here"
               />
             </div>
             <button
-              type="submit"
-              className="btn btn-primary"
+              type="submit m-3"
+              className="btn btn-primary me-2"
               onClick={handleLogin}
             >
               Login

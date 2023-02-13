@@ -1,4 +1,5 @@
 import React, { useRef, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Dashboard() {
   const title1Ref = useRef();
@@ -10,6 +11,10 @@ function Dashboard() {
   const link1Ref = useRef();
   const link2Ref = useRef();
   const link3Ref = useRef();
+
+  const roomIdRef = useRef();
+
+  const navigate = useNavigate();
 
   async function uploadLink(title, link) {
     await fetch(
@@ -41,6 +46,12 @@ function Dashboard() {
       }
     });
     alert("Success!!");
+  }
+
+  function enterRoom() {
+    localStorage.setItem("room_id", roomIdRef.current.value);
+    console.log(roomIdRef);
+    navigate("/room");
   }
 
   return (
@@ -197,6 +208,7 @@ function Dashboard() {
             <div className="col text-center">
               <div className="input-group mb-3">
                 <input
+                  ref={roomIdRef}
                   type="text"
                   className="form-control"
                   placeholder="Enter Room Id"
@@ -204,6 +216,7 @@ function Dashboard() {
                   aria-describedby="button-addon2"
                 />
                 <button
+                  onClick={enterRoom}
                   className="btn btn-outline-secondary"
                   type="button"
                   id="button-addon2"

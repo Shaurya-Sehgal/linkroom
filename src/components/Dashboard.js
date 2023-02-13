@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 
 function Dashboard() {
@@ -16,11 +16,71 @@ function Dashboard() {
 
   const navigate = useNavigate();
 
+  let rooms2 = [
+    {
+      code: "Shaurya/social-media",
+      given_link: "discord.com",
+      link_name: "discord",
+      username: "Shaurya",
+    },
+    {
+      code: "Shaurya/social-media",
+      given_link: "youtube.com",
+      link_name: "youtube",
+      username: "Shaurya",
+    },
+    {
+      code: "Shaurya/social-media",
+      given_link: "google.com",
+      link_name: "google",
+      username: "Shaurya",
+    },
+  ];
+
+  const [rooms, setRooms] = useState([
+    {
+      code: "Shaurya/social-media",
+      given_link: "discord.com",
+      link_name: "discord",
+      username: "Shaurya",
+    },
+    {
+      code: "Shaurya/social-media",
+      given_link: "youtube.com",
+      link_name: "youtube",
+      username: "Shaurya",
+    },
+    {
+      code: "Shaurya/social-media",
+      given_link: "google.com",
+      link_name: "google",
+      username: "Shaurya",
+    },
+  ]);
+
+  useEffect(() => {
+    async function fetchRooms() {
+      let userRooms = await fetch(
+        `https://apex.oracle.com/pls/apex/shaurya_sehgal/links/rooms?username=${localStorage.getItem(
+          "username"
+        )}`
+      );
+      let convertedUserRooms = await userRooms.json();
+      setRooms(convertedUserRooms.items);
+      console.log(convertedUserRooms.items);
+    }
+    fetchRooms();
+  }, []);
+
   async function uploadLink(title, link) {
     await fetch(
       `https://apex.oracle.com/pls/apex/shaurya_sehgal/links/links?code=${localStorage.getItem(
         "username"
-      )}/${codeRef.current.value}&given_link=${link}&link_name=${title}`,
+      )}/${
+        codeRef.current.value
+      }&given_link=${link}&link_name=${title}&username=${localStorage.getItem(
+        "username"
+      )}`,
       { method: "POST" }
     );
   }
@@ -202,7 +262,7 @@ function Dashboard() {
                 data-bs-target="#exampleModal"
                 data-bs-whatever="@mdo"
               >
-                Create a room!
+                Create a room! <i className="bi bi-arrow-right-circle-fill"></i>
               </button>
             </div>
             <div className="col text-center">
@@ -227,7 +287,15 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col"></div>
+        <div className="col bg-warning">
+          {rooms.map((element, index) => {
+            return (
+              <button key={index} className="btn btn-primary">
+                {element.given_link}
+              </button>
+            );
+          })}
+        </div>
       </div>
     </>
   );

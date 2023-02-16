@@ -8,6 +8,8 @@ function Linkroom() {
     navigate("/");
   }
 
+  console.log(localStorage.getItem("username"));
+
   return (
     <>
       <div className="container-fluid">
@@ -16,11 +18,13 @@ function Linkroom() {
           <div className="col">
             <h1 className="m-3 display-1 text-center text-primary">LinkRoom</h1>
           </div>
-          <div className="col d-flex align-items-center justify-content-end">
+          <div className={`col d-flex align-items-center justify-content-end`}>
             <img
               src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
               alt=""
-              className="rounded-circle me-2"
+              className={`rounded-circle me-2 ${
+                localStorage.getItem("username") == null ? "d-none" : ""
+              }`}
               width={70}
               data-bs-toggle="offcanvas"
               data-bs-target="#offcanvasRight"

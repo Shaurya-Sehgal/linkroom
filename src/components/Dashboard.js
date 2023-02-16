@@ -234,23 +234,11 @@ function Dashboard() {
       <div className="container">
         <div className="row">
           <div className="col text-center py-5">
-            <h1 className="display-5">
+            <h1 className="display-4">
               Hello {localStorage.getItem("username")}
             </h1>
           </div>
         </div>
-      </div>
-      <div className="input-group flex-nowrap">
-        <span className="input-group-text" id="addon-wrapping">
-          @
-        </span>
-        <input
-          type="text"
-          className="form-control"
-          placeholder="Username"
-          aria-label="Username"
-          aria-describedby="addon-wrapping"
-        />
       </div>
       <div className="row py-5">
         <div className="col py-5">
@@ -287,12 +275,29 @@ function Dashboard() {
             </div>
           </div>
         </div>
-        <div className="col bg-warning">
+        <div className="col">
+          <h1 className="display-6">Your Links</h1>
           {rooms.map((element, index) => {
             return (
-              <button key={index} className="btn btn-primary">
-                {element.given_link}
-              </button>
+              <>
+                <div className="input-group mb-3 w-75">
+                  <span
+                    type="text"
+                    className="form-control"
+                    id="basic-url"
+                    aria-describedby="basic-addon3"
+                  >
+                    {element.given_link}
+                  </span>
+                  <span className="input-group-text" id="basic-addon3">
+                    Visit
+                  </span>
+                </div>
+              </>
+              // {/*
+              //               <button key={index} className="btn btn-primary">
+              //                 {element.given_link}
+              //               </button> */}
             );
           })}
         </div>

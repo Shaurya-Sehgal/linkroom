@@ -44,7 +44,11 @@ function Room() {
               <div className="card-body">
                 <h5 className="card-title">{element.link_name}</h5>
                 <p className="card-text">{element.given_link}</p>
-                <a href={element.given_link} className="btn btn-primary">
+                <a
+                  target="_blank"
+                  href={element.given_link}
+                  className="btn btn-primary"
+                >
                   Visit Link
                 </a>
               </div>

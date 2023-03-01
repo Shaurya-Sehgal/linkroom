@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
+import { Tooltip } from "bootstrap";
 
 function Dashboard() {
   const title1Ref = useRef();
@@ -101,11 +102,23 @@ function Dashboard() {
       },
     ];
     links.map((element, index) => {
-      if (element.title !== "" && element.link !== "") {
+      if (validateLink(element.title, element.link)) {
         uploadLink(element.title, element.link);
       }
     });
     alert("Success!!");
+  }
+
+  function validateLink(title, link) {
+    if (title !== "" && link !== "") {
+      if (title.length >= 3) {
+        console.log(link.substring(0, 8));
+        if (link.substring(0, 8) == "https://") {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   function enterRoom() {
@@ -114,6 +127,14 @@ function Dashboard() {
     navigate("/room");
   }
 
+  function copy() {}
+
+  const tooltipTriggerList = document.querySelectorAll(
+    '[data-bs-toggle="tooltip"]'
+  );
+  const tooltipList = [...tooltipTriggerList].map(
+    (tooltipTriggerEl) => new Tooltip(tooltipTriggerEl)
+  );
   return (
     <>
       <div
@@ -281,6 +302,20 @@ function Dashboard() {
             return (
               <>
                 <div className="input-group mb-3 w-75">
+                  <span className="input-group-text w-25 d-flex justify-content-between">
+                    {element.link_name}
+                    <i
+                      style={{ cursor: "pointer" }}
+                      data-bs-toggle="tooltip"
+                      data-bs-placement="top"
+                      data-bs-custom-class="custom-tooltip"
+                      data-bs-title="copy link"
+                      class="bi bi-clipboard float-end"
+                      onClick={() => {
+                        navigator.clipboard.writeText(element.given_link);
+                      }}
+                    ></i>
+                  </span>
                   <span
                     type="text"
                     className="form-control"
@@ -289,9 +324,14 @@ function Dashboard() {
                   >
                     {element.given_link}
                   </span>
-                  <span className="input-group-text" id="basic-addon3">
+                  <a
+                    target="_blank"
+                    href={element.given_link}
+                    className="input-group-text"
+                    id="basic-addon3"
+                  >
                     Visit
-                  </span>
+                  </a>
                 </div>
               </>
               // {/*

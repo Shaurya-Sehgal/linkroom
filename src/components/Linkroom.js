@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate, Link } from "react-router-dom";
 
 function Linkroom() {
   const navigate = useNavigate();
@@ -16,7 +16,11 @@ function Linkroom() {
         <div className="row">
           <div className="col"></div>
           <div className="col">
-            <h1 className="m-3 display-1 text-center text-primary">LinkRoom</h1>
+            <Link to="/linkroom" className="text-decoration-none">
+              <h1 className="m-3 display-1 text-center text-primary">
+                LinkRoom
+              </h1>
+            </Link>
           </div>
           <div className={`col d-flex align-items-center justify-content-end`}>
             <img

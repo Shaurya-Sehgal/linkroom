@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Login from "./components/Login";
 import Linkroom from "./components/Linkroom";
@@ -11,7 +10,7 @@ function App() {
     <>
       <Linkroom />
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/linkroom" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/room" element={<Room />} />
       </Routes>

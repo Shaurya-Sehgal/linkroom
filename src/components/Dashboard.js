@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Tooltip } from "bootstrap";
 
 function Dashboard() {
@@ -16,27 +16,6 @@ function Dashboard() {
   const roomIdRef = useRef();
 
   const navigate = useNavigate();
-
-  let rooms2 = [
-    {
-      code: "Shaurya/social-media",
-      given_link: "discord.com",
-      link_name: "discord",
-      username: "Shaurya",
-    },
-    {
-      code: "Shaurya/social-media",
-      given_link: "youtube.com",
-      link_name: "youtube",
-      username: "Shaurya",
-    },
-    {
-      code: "Shaurya/social-media",
-      given_link: "google.com",
-      link_name: "google",
-      username: "Shaurya",
-    },
-  ];
 
   const [rooms, setRooms] = useState([
     {
@@ -104,6 +83,7 @@ function Dashboard() {
     links.map((element, index) => {
       if (validateLink(element.title, element.link)) {
         uploadLink(element.title, element.link);
+        return index;
       }
     });
     alert("Success!!");
@@ -113,7 +93,7 @@ function Dashboard() {
     if (title !== "" && link !== "") {
       if (title.length >= 3) {
         console.log(link.substring(0, 8));
-        if (link.substring(0, 8) == "https://") {
+        if (link.substring(0, 8) === "https://") {
           return true;
         }
       }
@@ -127,12 +107,10 @@ function Dashboard() {
     navigate("/room");
   }
 
-  function copy() {}
-
   const tooltipTriggerList = document.querySelectorAll(
     '[data-bs-toggle="tooltip"]'
   );
-  const tooltipList = [...tooltipTriggerList].map(
+  [...tooltipTriggerList].map(
     (tooltipTriggerEl) => new Tooltip(tooltipTriggerEl)
   );
   return (

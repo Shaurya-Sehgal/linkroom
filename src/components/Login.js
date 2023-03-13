@@ -1,14 +1,22 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Await, useNavigate } from "react-router-dom";
 
 function Login() {
   const username = useRef("");
   const code = useRef("");
   const navigate = useNavigate();
-  let passwordCorrection = document.getElementById("passwordCorrection");
-  let usernameCorrection = document.getElementById("usernameCorrection");
+  const [passwordCorrection, setPasswordCorrection] = useState("");
+  const [usernameCorrection, setUsernameCorrection] = useState("");
 
   async function handleSignup() {
+    setPasswordCorrection("");
+    document.getElementById("exampleInputPassword1").style.borderColor = "";
+    if (code.current.value.length <= 3) {
+      setPasswordCorrection("Password has to have 3 or more characters");
+      document.getElementById("exampleInputPassword1").style.borderColor =
+        "red";
+      return;
+    }
     let accounts = await fetch(
       "https://apex.oracle.com/pls/apex/shaurya_sehgal/linkroom/get"
     );
@@ -16,9 +24,7 @@ function Login() {
     convertedData = convertedData.items;
     for (let i = 0; i < convertedData.length; i++) {
       if (username.current.value == convertedData[i].accname) {
-        document.getElementById("usernameCorrection").innerHTML =
-          "Already Taken";
-        document.getElementById("usernameCorrection").style.color = "red";
+        setUsernameCorrection("Already Taken");
         document.getElementById("exampleInputEmail1").style.borderColor = "red";
         return;
       }
@@ -27,9 +33,7 @@ function Login() {
       `https://apex.oracle.com/pls/apex/shaurya_sehgal/linkroom/add?accname=${username.current.value}&code=${code.current.value}`,
       { method: "POST" }
     ).then(() => {
-      document.getElementById("usernameCorrection").innerHTML =
-        "Account Created Successfully";
-      document.getElementById("usernameCorrection").style.color = "green";
+      setUsernameCorrection("Account Created Successfully");
       document.getElementById("exampleInputEmail1").style.borderColor = "green";
     });
   }
@@ -53,11 +57,7 @@ function Login() {
       }
     });
     if (login == "unsuccessful") {
-      document.getElementById("passwordCorrection").innerHTML =
-        "Incorrect Password";
-      document.getElementById("passwordCorrection").style.color = "red";
-      document.getElementById("exampleInputPassword1").style.borderColor =
-        "red";
+      setPasswordCorrection("Incorrect Credentials");
     }
   }
 
@@ -79,9 +79,15 @@ function Login() {
               </label>
               <label
                 htmlFor="exampleInputEmail1"
-                className="form-label"
+                className={`form-label ${
+                  usernameCorrection == "Already Taken"
+                    ? "text-danger"
+                    : "text-success"
+                }`}
                 id="usernameCorrection"
-              ></label>
+              >
+                {usernameCorrection}
+              </label>
               <input
                 ref={username}
                 type="username"
@@ -100,13 +106,17 @@ function Login() {
               </label>
               <label
                 htmlFor="exampleInputPassword1"
-                className="form-label"
+                className="form-label text-danger"
                 id="passwordCorrection"
-              ></label>
+              >
+                {passwordCorrection}
+              </label>
               <input
                 ref={code}
                 type="password"
-                className="form-control"
+                className={`form-control ${
+                  passwordCorrection.length === 0 ? "" : "border-danger"
+                }`}
                 id="exampleInputPassword1"
                 placeholder="enter a unique code here"
               />

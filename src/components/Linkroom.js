@@ -1,14 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 
 function Linkroom() {
   const navigate = useNavigate();
+  const [rooms, setRooms] = useState([]);
   function logout() {
     localStorage.removeItem("username");
-    navigate("/");
+    navigate("/linkroom");
   }
 
-  console.log(localStorage.getItem("username"));
+  useEffect(() => {
+    async function getRooms() {
+      let userRooms = await fetch(
+        `https://apex.oracle.com/pls/apex/shaurya_sehgal/links/roomid?user=${localStorage.getItem(
+          "username"
+        )}%`
+      );
+      let convertedUserRooms = await userRooms.json();
+      setRooms(convertedUserRooms.items);
+      console.log(convertedUserRooms.items);
+    }
+    getRooms();
+  }, []);
 
   return (
     <>
@@ -54,6 +67,37 @@ function Linkroom() {
               data-bs-dismiss="offcanvas"
               aria-label="Close"
             />
+          </div>
+          <div>
+            {rooms.map((element, index) => {
+              return (
+                <div key={index}>
+                  <div
+                    className="card text-bg-light mb-3 m-auto"
+                    style={{ maxWidth: "18rem" }}
+                  >
+                    <div className="card-header">Room-{index + 1}</div>
+                    <div className="card-body">
+                      <h5 className="card-title">{element.code}</h5>
+                      <p className="card-text">
+                        <button
+                          className="btn btn-primary"
+                          aria-label="Close"
+                          data-bs-dismiss="offcanvas"
+                          onClick={() => {
+                            localStorage.setItem("room_id", element.code);
+                            navigate("/linkroom");
+                            navigate("/room");
+                          }}
+                        >
+                          Open Room
+                        </button>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
           <div className="offcanvas-body">
             <button

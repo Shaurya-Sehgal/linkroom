@@ -8,13 +8,36 @@ function Login() {
   const [passwordCorrection, setPasswordCorrection] = useState("");
   const [usernameCorrection, setUsernameCorrection] = useState("");
 
+  const validateFormInputs = () => {
+    setUsernameCorrection("");
+    setPasswordCorrection("");
+    document.getElementById("exampleInputEmail1").style.borderColor = "";
+    document.getElementById("exampleInputPassword1").style.borderColor = "";
+    //Check for blank inputs
+    if (username.current.value.length === 0) {
+      setUsernameCorrection("Username cannot be blank");
+
+      document.getElementById("exampleInputEmail1").style.borderColor = "red";
+      return false;
+    }
+    if (code.current.value.length === 0) {
+      setPasswordCorrection("Password cannot be blank");
+      document.getElementById("exampleInputPassword1").style.borderColor =
+        "red";
+      return false;
+    }
+    if (username.current.value.length <= 3) {
+      setUsernameCorrection("Username has to have 3 or more characters");
+      document.getElementById("exampleInputEmail1").style.borderColor = "red";
+      return false;
+    }
+    return true;
+  };
+
   async function handleSignup() {
     setPasswordCorrection("");
     document.getElementById("exampleInputPassword1").style.borderColor = "";
-    if (code.current.value.length <= 3) {
-      setPasswordCorrection("Password has to have 3 or more characters");
-      document.getElementById("exampleInputPassword1").style.borderColor =
-        "red";
+    if (validateFormInputs() === false) {
       return;
     }
     let accounts = await fetch(
@@ -33,12 +56,16 @@ function Login() {
       `https://apex.oracle.com/pls/apex/shaurya_sehgal/linkroom/add?accname=${username.current.value}&code=${code.current.value}`,
       { method: "POST" }
     ).then(() => {
-      setUsernameCorrection("Account Created Successfully");
+      setUsernameCorrection("Account Created Successfully, Please Login");
       document.getElementById("exampleInputEmail1").style.borderColor = "green";
     });
   }
 
   async function handleLogin() {
+    if (validateFormInputs() === false) {
+      return;
+    }
+
     let accounts = await fetch(
       "https://apex.oracle.com/pls/apex/shaurya_sehgal/linkroom/get"
     );
@@ -82,7 +109,17 @@ function Login() {
                 className={`form-label ${
                   usernameCorrection == "Already Taken"
                     ? "text-danger"
-                    : "text-success"
+                    : usernameCorrection ==
+                      "Account Created Successfully, Please Login"
+                    ? "text-success"
+                    : usernameCorrection.length === 0
+                    ? ""
+                    : usernameCorrection ==
+                      "Username has to have 3 or more characters"
+                    ? "text-danger"
+                    : usernameCorrection == "Username cannot be blank"
+                    ? "text-danger"
+                    : ""
                 }`}
                 id="usernameCorrection"
               >

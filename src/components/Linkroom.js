@@ -58,9 +58,9 @@ function Linkroom() {
           aria-labelledby="offcanvasRightLabel"
         >
           <div className="offcanvas-header">
-            <h5 className="offcanvas-title" id="offcanvasRightLabel">
+            <h2 className="offcanvas-title" id="offcanvasRightLabel">
               Profile
-            </h5>
+            </h2>
             <button
               type="button"
               className="btn-close"
@@ -69,6 +69,21 @@ function Linkroom() {
             />
           </div>
           <div>
+            <h4 className="px-3 m-0 p">
+              Name: {localStorage.getItem("username")}
+            </h4>
+            <h4 className="px-3 m-0">Rooms: {rooms.length}</h4>
+            <div className="offcanvas-body">
+              <button
+                className="btn btn-outline-danger w-100"
+                data-bs-dismiss="offcanvas"
+                aria-label="Close"
+                onClick={logout}
+              >
+                Logout
+              </button>
+            </div>
+            <h3>Rooms</h3>
             {rooms.map((element, index) => {
               return (
                 <div key={index}>
@@ -80,34 +95,24 @@ function Linkroom() {
                     <div className="card-body">
                       <h5 className="card-title">{element.code}</h5>
                       <p className="card-text">
-                        <button
+                        <a
+                          href="/room"
                           className="btn btn-primary"
                           aria-label="Close"
                           data-bs-dismiss="offcanvas"
-                          onClick={() => {
-                            localStorage.setItem("room_id", element.code);
-                            navigate("/linkroom");
-                            navigate("/room");
-                          }}
+                          // onClick={() => {
+                          //   localStorage.setItem("room_id", element.code);
+                          //   navigate("/room");
+                          // }}
                         >
                           Open Room
-                        </button>
+                        </a>
                       </p>
                     </div>
                   </div>
                 </div>
               );
             })}
-          </div>
-          <div className="offcanvas-body">
-            <button
-              className="btn btn-outline-danger w-100"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-              onClick={logout}
-            >
-              Logout
-            </button>
           </div>
         </div>
       </>

@@ -47,7 +47,6 @@ function Dashboard() {
       );
       let convertedUserRooms = await userRooms.json();
       setRooms(convertedUserRooms.items);
-      console.log(convertedUserRooms.items);
     }
     fetchRooms();
   }, []);
@@ -92,7 +91,6 @@ function Dashboard() {
   function validateLink(title, link) {
     if (title !== "" && link !== "") {
       if (title.length >= 3) {
-        console.log(link.substring(0, 8));
         if (link.substring(0, 8) === "https://") {
           return true;
         }
@@ -103,7 +101,6 @@ function Dashboard() {
 
   function enterRoom() {
     localStorage.setItem("room_id", roomIdRef.current.value);
-    console.log(roomIdRef);
     navigate("/room");
   }
 
@@ -239,85 +236,83 @@ function Dashboard() {
           </div>
         </div>
       </div>
-      <div className="row py-5">
-        <div className="col py-5">
-          <div className="row py-5">
-            <div className="col text-center">
-              <button
-                className="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#exampleModal"
-                data-bs-whatever="@mdo"
-              >
-                Create a room! <i className="bi bi-arrow-right-circle-fill"></i>
-              </button>
-            </div>
-            <div className="col text-center">
-              <div className="input-group mb-3">
-                <input
-                  ref={roomIdRef}
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Room Id"
-                  aria-label="Recipient's username"
-                  aria-describedby="button-addon2"
-                />
+      <div className="container">
+        <div className="row py-5">
+          <div className="col-lg-6 py-5">
+            <div className="row py-5">
+              <div className="col text-center">
                 <button
-                  onClick={enterRoom}
-                  className="btn btn-outline-secondary"
-                  type="button"
-                  id="button-addon2"
+                  className="btn btn-primary"
+                  data-bs-toggle="modal"
+                  data-bs-target="#exampleModal"
                 >
-                  Join
+                  Create a room!{" "}
+                  <i className="bi bi-arrow-right-circle-fill"></i>
                 </button>
+              </div>
+              <div className="col text-center">
+                <div className="input-group mb-3">
+                  <input
+                    ref={roomIdRef}
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter Room Id"
+                    aria-label="Recipient's username"
+                    aria-describedby="button-addon2"
+                  />
+                  <button
+                    onClick={enterRoom}
+                    className="btn btn-outline-secondary"
+                    type="button"
+                    id="button-addon2"
+                  >
+                    Join
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="col">
-          <h1 className="display-6">Your Links</h1>
-          {rooms.map((element, index) => {
-            return (
-              <>
-                <div className="input-group mb-3 w-75">
-                  <span className="input-group-text w-25 d-flex justify-content-between">
-                    {element.link_name}
-                    <i
-                      style={{ cursor: "pointer" }}
-                      data-bs-toggle="tooltip"
-                      data-bs-placement="top"
-                      data-bs-custom-class="custom-tooltip"
-                      data-bs-title="copy link"
-                      class="bi bi-clipboard float-end"
-                      onClick={() => {
-                        navigator.clipboard.writeText(element.given_link);
-                      }}
-                    ></i>
-                  </span>
-                  <span
-                    type="text"
-                    className="form-control"
-                    id="basic-url"
-                    aria-describedby="basic-addon3"
-                  >
-                    {element.given_link}
-                  </span>
-                  <a
-                    target="_blank"
-                    href={element.given_link}
-                    className="input-group-text"
-                    id="basic-addon3"
-                  >
-                    Visit
-                  </a>
-                </div>
-              </>
-              // {/*
-              //               <button key={index} className="btn btn-primary">
-              //                 {element.given_link}
-              //               </button> */}
-            );
-          })}
+          <div className="col-lg-6">
+            <h1 className="display-6 text-center">Your Links</h1>
+            {rooms.map((element, index) => {
+              return (
+                <>
+                  <div className="input-group mb-3 w-75 m-auto">
+                    <span className="input-group-text w-25 d-flex justify-content-between">
+                      {element.link_name}
+                      <i
+                        style={{ cursor: "pointer" }}
+                        data-bs-toggle="tooltip"
+                        data-bs-placement="top"
+                        data-bs-custom-class="custom-tooltip"
+                        data-bs-title="copy link"
+                        class="bi bi-clipboard float-end"
+                        onClick={() => {
+                          navigator.clipboard.writeText(element.given_link);
+                        }}
+                      ></i>
+                    </span>
+                    <span
+                      type="text"
+                      className="form-control"
+                      id="basic-url"
+                      aria-describedby="basic-addon3"
+                    >
+                      {element.given_link}
+                    </span>
+                    <a
+                      target="_blank"
+                      href={element.given_link}
+                      className="input-group-text"
+                      id="basic-addon3"
+                    >
+                      Visit
+                    </a>
+                  </div>
+                </>
+              );
+            })}
+          </div>
         </div>
       </div>
     </>

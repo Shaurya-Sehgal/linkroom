@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 function Room() {
   let recievedLinks = [];
@@ -11,11 +12,6 @@ function Room() {
 
   useEffect(() => {
     async function getLinks() {
-      console.log(
-        `https://apex.oracle.com/pls/apex/shaurya_sehgal/links/links?${localStorage.getItem(
-          "room_id"
-        )}`
-      );
       recievedLinks = await fetch(
         `https://apex.oracle.com/pls/apex/shaurya_sehgal/links/links?room_id=${localStorage.getItem(
           "room_id"
@@ -23,7 +19,6 @@ function Room() {
       );
       let convertedLinks = await recievedLinks.json();
       setLinks(convertedLinks.items);
-      console.log(convertedLinks.items);
     }
     getLinks();
   }, []);
@@ -34,6 +29,14 @@ function Room() {
         <h1 className="text-center display-4 mb-3">Links</h1>
         <h1 className="text-center display-6 mb-3">
           {localStorage.getItem("room_id")}
+          <Link className="btn btn-danger mx-3" to="/dashboard">
+            Exit Room
+            <span
+              class="spinner-grow spinner-grow-sm ms-2"
+              role="status"
+              aria-hidden="true"
+            ></span>
+          </Link>
         </h1>
         {links.map((element, index) => {
           return (

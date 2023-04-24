@@ -92,7 +92,7 @@ function Login() {
     <>
       <div className="container">
         <div
-          className=" d-flex align-items-center"
+          className="d-flex align-items-center"
           style={{ minHeight: "80vh" }}
         >
           <div className="col">

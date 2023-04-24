@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/linkroom/static/css/main.073c9b0a.css",
-    "main.js": "/linkroom/static/js/main.34204f97.js",
+    "main.js": "/linkroom/static/js/main.e33191fa.js",
     "static/js/787.858ef78e.chunk.js": "/linkroom/static/js/787.858ef78e.chunk.js",
     "index.html": "/linkroom/index.html",
     "main.073c9b0a.css.map": "/linkroom/static/css/main.073c9b0a.css.map",
-    "main.34204f97.js.map": "/linkroom/static/js/main.34204f97.js.map",
+    "main.e33191fa.js.map": "/linkroom/static/js/main.e33191fa.js.map",
     "787.858ef78e.chunk.js.map": "/linkroom/static/js/787.858ef78e.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
-    "static/js/main.34204f97.js"
+    "static/js/main.e33191fa.js"
   ]
 }

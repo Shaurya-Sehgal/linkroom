@@ -7,7 +7,7 @@ function Linkroom() {
   const [rooms, setRooms] = useState([]);
   function logout() {
     localStorage.removeItem("username");
-    navigate("/linkroom");
+    navigate("/");
   }
   async function getRooms() {
     let userRooms = await fetch(
@@ -29,7 +29,7 @@ function Linkroom() {
         <div className="row">
           <div className="col-4"></div>
           <div className="col-4">
-            <Link to="/linkroom" className="text-decoration-none">
+            <Link to="/" className="text-decoration-none">
               <h1 className="m-3 display-1 text-center text-primary">
                 LinkRoom
               </h1>

@@ -9,17 +9,17 @@ function Linkroom() {
     localStorage.removeItem("username");
     navigate("/linkroom");
   }
+  async function getRooms() {
+    let userRooms = await fetch(
+      `https://apex.oracle.com/pls/apex/shaurya_sehgal/links/roomid?user=${localStorage.getItem(
+        "username"
+      )}%`
+    );
+    let convertedUserRooms = await userRooms.json();
+    setRooms(convertedUserRooms.items);
+  }
 
   useEffect(() => {
-    async function getRooms() {
-      let userRooms = await fetch(
-        `https://apex.oracle.com/pls/apex/shaurya_sehgal/links/roomid?user=${localStorage.getItem(
-          "username"
-        )}%`
-      );
-      let convertedUserRooms = await userRooms.json();
-      setRooms(convertedUserRooms.items);
-    }
     getRooms();
   }, []);
 
@@ -47,6 +47,10 @@ function Linkroom() {
                 localStorage.getItem("username") == null ? "d-none" : ""
               }`}
               width={70}
+              onClick={() => {
+                console.log("updated room");
+                getRooms();
+              }}
               data-bs-toggle="modal"
               data-bs-target="#exampleModal2"
             />

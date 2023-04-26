@@ -10,7 +10,7 @@ function App() {
     <>
       <Linkroom />
       <Routes>
-        <Route path="/linkroom" element={<Login />} />
+        <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/room" element={<Room />} />
       </Routes>

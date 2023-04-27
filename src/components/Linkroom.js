@@ -91,7 +91,7 @@ function Linkroom() {
                           <div className="card-header">Room-{index + 1}</div>
                           <div className="card-body">
                             <h5 className="card-title">{element.code}</h5>
-                            <p className="card-text">
+                            <p className="card-text d-flex justify-content-between">
                               <a
                                 href="/room"
                                 className="btn btn-primary"
@@ -104,6 +104,15 @@ function Linkroom() {
                               >
                                 Open Room
                               </a>
+                              <button
+                                href="#"
+                                className="btn btn-outline-primary"
+                                onClick={() => {
+                                  navigator.clipboard.writeText(element.code);
+                                }}
+                              >
+                                <i className="bi bi-clipboard"></i>
+                              </button>
                             </p>
                           </div>
                         </div>

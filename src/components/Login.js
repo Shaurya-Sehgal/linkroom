@@ -96,7 +96,7 @@ function Login() {
           style={{ minHeight: "80vh" }}
         >
           <div className="col">
-            <h2 className="text-center">Login/Sign up</h2>
+            <h2 className="text-center display-6">Login/Sign up</h2>
           </div>
 
           <div className="w-50 m-auto">
@@ -150,7 +150,7 @@ function Login() {
               </label>
               <input
                 ref={code}
-                type="password"
+                type={`password`}
                 className={`form-control ${
                   passwordCorrection.length === 0 ? "" : "border-danger"
                 }`}

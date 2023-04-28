@@ -79,16 +79,16 @@ function Dashboard() {
         link: link3Ref.current.value,
       },
     ];
+    if (codeRef.current.value === "" || link1Ref.current.value === "") {
+      alert("Must have at least have room code and 1 link");
+      return;
+    }
     links.map((element, index) => {
       if (validateLink(element.title, element.link)) {
         uploadLink(element.title, element.link);
         return index;
       }
     });
-    if (roomIdRef.current.value === "" || link1Ref.current.value === "") {
-      alert("Must have at least have room code and 1 link");
-      return;
-    }
     alert("Success!");
   }
 
@@ -168,7 +168,7 @@ function Dashboard() {
                         ref={link1Ref}
                         type="text"
                         className="form-control w-25"
-                        placeholder="Link"
+                        placeholder="https://example.com"
                         aria-label="Server"
                       />
                     </div>
@@ -185,7 +185,7 @@ function Dashboard() {
                         ref={link2Ref}
                         type="text"
                         className="form-control w-25"
-                        placeholder="Link"
+                        placeholder="https://example.com"
                         aria-label="Server"
                       />
                     </div>
@@ -202,7 +202,7 @@ function Dashboard() {
                         ref={link3Ref}
                         type="text"
                         className="form-control w-25"
-                        placeholder="Link"
+                        placeholder="https://example.com"
                         aria-label="Server"
                       />
                     </div>

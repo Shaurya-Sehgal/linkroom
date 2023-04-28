@@ -85,7 +85,11 @@ function Dashboard() {
         return index;
       }
     });
-    alert("Success!!");
+    if (roomIdRef.current.value === "" || link1Ref.current.value === "") {
+      alert("Must have at least have room code and 1 link");
+      return;
+    }
+    alert("Success!");
   }
 
   function validateLink(title, link) {
